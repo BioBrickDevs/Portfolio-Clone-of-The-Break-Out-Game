@@ -58,7 +58,7 @@ else:
 # detect if ball is released
 ball_release = False
 # detect if ball is hit and must change direction
-hit = False
+
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -79,7 +79,7 @@ while running:
             )
             screen.blit(main_screen_surface, (10, line_height))
             line_height += 30
-        print("display here start screen when red")
+
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -104,21 +104,18 @@ while running:
     # borders = pygame.draw.rect(screen, "black", (0, 0, 1280, 720), 3)
     for index, x in enumerate(list_of_boxes):
         if x.colliderect(ball):  # target hits with ball
-            hit = True
+         
             score += 20
             list_of_boxes.pop(index)
-            print(hit)
+
             movement_y *= -1
-            hit = False
-            print(ball.left)
+            
 
             if x.collidepoint(ball.midleft) or x.collidepoint(ball.midright):
-                print("collision")
                 movement_y *= -1
                 movement_x *= -1
 
-        else:
-            hit = False
+            
 
     if not list_of_boxes:
         level_cleared = True
@@ -191,20 +188,16 @@ while running:
 
                     pygame.display.flip()
 
-        print("level cleared")
-        print("display_level_cleared")
-
         level_cleared = False
 
     # if ball hits the paddle
     if box.colliderect(ball):
-        hit = True
+       
 
         if ball.centery >= box.top:
             if one_time:
                 one_time = False
                 movement_x *= -1
-                print("pöö")
 
         else:
             movement_y *= -1
@@ -212,7 +205,6 @@ while running:
     if ball.top > 720:  # if ball goes out of the screen bellow the paddle
         lives -= 1
         if lives > 0:
-            print("death")
             move_x = box.centerx  # defines start postion for the ball
             move_y = box.top - 8  # defines start postion for the ball
             ball_release = False
@@ -252,7 +244,7 @@ while running:
 
                     if keys[pygame.K_RETURN]:
                         game_over = False
-                        print()
+
                         # reset the game if user wants to play again
                         move_x = box.centerx  # defines start postion for the ball
                         move_y = box.top - 8  # defines start postion for the ball
@@ -287,22 +279,14 @@ while running:
 
                         pygame.display.flip()
 
-            print("Put here your program code for death")
-            print("Display score and if restart")
-
-    else:
-        hit = False
+    
+    
 
     score_surface = score_text.render(f"Score: {score}", True, (4, 102, 200))
     lives_surface = score_text.render(f"Lives: {lives}", True, (4, 102, 200))
 
     screen.blit(score_surface, (10, 0))
     screen.blit(lives_surface, (1160, 0))
-    # if borders.colliderect(ball):
-    # hit = True
-    # movement_y*=-1
-    # else:
-    # hit = False
 
     # checks for if the ball hits left or right of window
     if ball.left < 0 + 4 or ball.right > 1280 - 4:
@@ -311,33 +295,23 @@ while running:
     if ball.top < 4:
         movement_y *= -1
 
-        print(ball.left, ball.right, ball.top)
-        hit = True
-    else:
-        hit = False
+    
+    
 
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_LEFT]:
-        # Move Down
-        # l_paddle.down()
-        if not(box.left < 0):
+        if not (box.left < 0):
             box = box.move(-6, 0)
 
     if keys[pygame.K_RIGHT]:
-        # l_paddle.up()
-        if not(box.right >1280):
+        if not (box.right > 1280):
             box = box.move(6, 0)
 
     if keys[pygame.K_SPACE]:
         ball_release = True
 
     if ball_release:
-        # if hit:
-        # movement_y *= -1
-        # else:
-        # movement *= -1
-        # pass
         move_x += movement_x
         move_y += movement_y
     else:
@@ -347,9 +321,8 @@ while running:
     if running:
         pygame.display.flip()
     if level == 1:
-        clock.tick(60)
+        clock.tick(60)  # game start at normal speed
     else:
-    
-        clock.tick(round(60 + (5 * level), 0))  # limits FPS to 60
+        clock.tick(round(60 + (5 * level), 0))  # Game will speed up when level cleared
 
 pygame.quit()
