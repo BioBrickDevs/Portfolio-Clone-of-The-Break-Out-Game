@@ -104,18 +104,15 @@ while running:
     # borders = pygame.draw.rect(screen, "black", (0, 0, 1280, 720), 3)
     for index, x in enumerate(list_of_boxes):
         if x.colliderect(ball):  # target hits with ball
-         
+
             score += 20
             list_of_boxes.pop(index)
 
             movement_y *= -1
-            
 
             if x.collidepoint(ball.midleft) or x.collidepoint(ball.midright):
                 movement_y *= -1
                 movement_x *= -1
-
-            
 
     if not list_of_boxes:
         level_cleared = True
@@ -180,8 +177,10 @@ while running:
                             (50, 30),
                             borders=0,
                         )
-                        box_to_be_added_2 = pygame.Rect((x, 200), (50, 30), borders=0)
-                        box_to_be_added_3 = pygame.Rect((x, 300), (50, 30), borders=0)
+                        box_to_be_added_2 = pygame.Rect(
+                            (x, 200), (50, 30), borders=0)
+                        box_to_be_added_3 = pygame.Rect(
+                            (x, 300), (50, 30), borders=0)
                         list_of_boxes.append(box_to_be_added)
                         list_of_boxes.append(box_to_be_added_2)
                         list_of_boxes.append(box_to_be_added_3)
@@ -192,7 +191,6 @@ while running:
 
     # if ball hits the paddle
     if box.colliderect(ball):
-       
 
         if ball.centery >= box.top:
             if one_time:
@@ -279,9 +277,6 @@ while running:
 
                         pygame.display.flip()
 
-    
-    
-
     score_surface = score_text.render(f"Score: {score}", True, (4, 102, 200))
     lives_surface = score_text.render(f"Lives: {lives}", True, (4, 102, 200))
 
@@ -294,9 +289,6 @@ while running:
     # checks if the ball hits top of window
     if ball.top < 4:
         movement_y *= -1
-
-    
-    
 
     keys = pygame.key.get_pressed()
 
@@ -323,6 +315,7 @@ while running:
     if level == 1:
         clock.tick(60)  # game start at normal speed
     else:
-        clock.tick(round(60 + (5 * level), 0))  # Game will speed up when level cleared
+        # Game will speed up when level cleared
+        clock.tick(round(60 + (5 * level), 0))
 
 pygame.quit()
